@@ -8,9 +8,11 @@ from . import models
 from django.db import connections
 # from models import Coach, Players
 
+from django.db import transaction
+
 
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return render(request, 'index.html')
 
 
 def detail(request, question_id):
@@ -25,6 +27,8 @@ def results(request, question_id):
 def vote(request, question_id):
     return HttpResponse("You're voting on question %s." % question_id)
 
+
+@transaction.atomic()
 def teamStats(request, team_name):
 
     #fetching data for team stats table
@@ -112,6 +116,8 @@ def teamStats(request, team_name):
 
     return render(request, 'teamstats.html', context)
 
+
+@transaction.atomic()
 def teamStatsRange(request, team_name):
     
     #fetching data for team stats table
@@ -161,6 +167,8 @@ def teamStatsRange(request, team_name):
 
     return render(request, 'teamstatsrange.html', context)
 
+
+@transaction.atomic()
 def teamStatsAdd(request, team_name):
 
     #fetching data for team stats table
@@ -206,6 +214,8 @@ def teamStatsAdd(request, team_name):
         cursor.execute(query)
     return render(request, 'teamstatsadd.html', context)
 
+
+@transaction.atomic()
 def teamList(request):
 
     #fetching data for team stats table
@@ -259,6 +269,8 @@ def teamList(request):
 
     return render(request, 'teamlist.html', context)
 
+
+@transaction.atomic()
 def teamListRange(request):
     
     #fetching data for team stats table
@@ -283,6 +295,8 @@ def teamListRange(request):
 
     return render(request, 'teamlistrange.html', context)
 
+
+@transaction.atomic()
 def teamListAdd(request):
 
     #fetching data for team stats table
